@@ -4,7 +4,7 @@ class Employee
   attr_accessor :salary
 
   def initialize(input_hash = {})
-    @first_name = input_hash[:first_name] || input_hash[:last_name]
+    @first_name = input_hash[:first_name] || "First"
     @last_name = input_hash[:last_name] || "Last"
     @salary = input_hash[:salary] || 0
     @active = input_hash[:active] || false
@@ -28,14 +28,29 @@ class Employee
 end
 
 class Manager < Employee
+  def initialize(input_hash = {})
+    super
+    @employees = input_hash[:employees]
+  end
+
   def send_reports
     puts "Sending reports..."
     puts "Done!"
   end
+
+  def show_employees
+    p @employees
+  end
+
+
 end
 
-employee = Employee.new()
-manager = Manager.new(first_name: "Manager")
+employee1 = Employee.new(first_name: "Paul", last_name: "Allen")
+employee2 = Employee.new(first_name: "Steve", last_name: "Ballmer")
+
+manager = Manager.new(first_name: "Bill", last_name: "Gates", employees: [employee1, employee2])
+
 manager.full_name
 manager.send_reports
+manager.show_employees
 
